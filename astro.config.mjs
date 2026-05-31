@@ -7,7 +7,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
-// import cloudflare from '@astrojs/cloudflare'; // 1. Added the Cloudflare import
+import cloudflare from '@astrojs/cloudflare'; // 1. Added the Cloudflare import
 
 // Remark/Rehype plugins for math rendering
 import remarkMath from 'remark-math';
@@ -15,8 +15,8 @@ import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
 
 export default defineConfig({
-  output: 'static',
-  // adapter: cloudflare(), // 2. Added the Cloudflare adapter
+  output: 'server',
+  adapter: cloudflare(), // 2. Added the Cloudflare adapter
   integrations: [
     mdx(),
     tailwind({ applyBaseStyles: false }),
