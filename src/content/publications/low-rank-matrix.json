@@ -1,0 +1,12 @@
+{
+    "title": "Kernelized Low-rank matrix recovery: Application in collaborative representation based classification",
+    "authors": ["Subhajit Saha", "Angshul Majumdar", "Swagatam Das", "Avisek Gupta"],
+    "year": 2025,
+    "venue": "International Joint Conference on Neural Networks (IJCNN)",
+    "type": "conference",
+    "url": "https://ieeexplore.ieee.org/abstract/document/11227597/",
+    "doi": "10.1109/IJCNN64981.2025.11227597",
+    "abstract": "In the past there have been studies in kernelized versions of sparse recovery algorithms; most notably for l1-norm minimization and orthogonal matching pursuit. However, there has been no work on a kernel version of a related problem - low-rank matrix recovery via nuclear norm minimization. In this paper, we address this hitherto unsolved problem. The ensuing formulation is solved using the Majorisation Minimization (MM) approach. The reason for using MM is to ensure there are no additional hyper-parameters to tune. We apply this technique for Collaborative Representation based Classification (CRC). Experiments have been carried forth on video based face recognition on the VidTIMIT and iSAFE databases. Comparison has been done with other CRC approaches along with two dictionary learning based and two deep learning based techniques. Results show that our method improves over all of the aforesaid.",
+    "tags": ["low-rank matrix recovery","nuclear norm minimization","kernel methods","Majorisation Minimization","Collaborative Representation based Classification","face recognition"],
+    "featured": true
+}

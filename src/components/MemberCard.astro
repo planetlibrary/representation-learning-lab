@@ -1,0 +1,102 @@
+---
+// src/components/MemberCard.astro
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  member: CollectionEntry<'members'>;
+}
+
+const { member } = Astro.props;
+const m = member.data;
+
+const roleLabelColor: Record<string, string> = {
+  'Principal Investigator':  'text-ink font-medium',
+  'Co-Investigator':         'text-ink font-medium',
+  'Postdoctoral Researcher': 'text-ink-muted',
+  'PhD Student':             'text-ink-muted',
+  'MS Student':              'text-ink-muted',
+  'Research Engineer':       'text-ink-muted',
+  'Undergraduate Researcher':'text-ink-subtle',
+  'Visiting Researcher':     'text-ink-subtle',
+  'Alumni':                  'text-ink-faint',
+  'Intern':                  'text-ink-faint',
+};
+const roleColor = roleLabelColor[m.role] ?? 'text-ink-muted';
+
+const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase();
+---
+
+<article class="flex flex-col gap-4 border-t border-surface-border pt-6">
+
+  <!-- Top row: avatar + name + role -->
+  <div class="flex items-start gap-4">
+
+    <!-- Avatar -->
+    {m.avatar
+      ? <img
+          src={m.avatar}
+          alt={`${m.name}`}
+          width="56" height="56"
+          class="h-14 w-14 rounded-full object-cover bg-surface-muted ring-1 ring-surface-border flex-shrink-0"
+          loading="lazy"
+        />
+      : <div class="flex h-14 w-14 items-center justify-center rounded-full bg-surface-muted text-ink-muted font-display font-semibold text-base flex-shrink-0 ring-1 ring-surface-border">
+          {initials}
+        </div>
+    }
+
+    <div class="min-w-0">
+      <h3 class="font-display text-base font-bold text-ink leading-snug">
+        {m.website
+          ? <a href={m.website} target="_blank" rel="noopener noreferrer" class="hover:text-accent-blue">{m.name}</a>
+          : m.name
+        }
+      </h3>
+      <p class:list={['text-sm mt-0.5', roleColor]}>{m.role}</p>
+      <p class="text-xs text-ink-faint mt-0.5">Since {m.joinYear}</p>
+    </div>
+  </div>
+
+  <!-- Bio — full text, no clamp -->
+  <p class="text-sm text-ink-muted leading-relaxed">{m.bio}</p>
+
+  <!-- Research interests -->
+  {m.interests.length > 0 && (
+    <div class="flex flex-wrap gap-1.5">
+      {m.interests.map((interest: string) => (
+        <span class="text-xs text-ink-muted bg-surface-muted border border-surface-border rounded px-2 py-0.5">
+          {interest}
+        </span>
+      ))}
+    </div>
+  )}
+
+  <!-- Social links -->
+  <div class="flex items-center gap-4 text-xs text-ink-faint">
+    {m.email && (
+      <a href={`mailto:${m.email}`} class="hover:text-ink transition-colors" title={`Email ${m.name}`}>
+        Email
+      </a>
+    )}
+    {m.github && (
+      <a href={m.github} target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">
+        GitHub
+      </a>
+    )}
+    {m.googleScholar && (
+      <a href={m.googleScholar} target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">
+        Scholar
+      </a>
+    )}
+    {m.linkedin && (
+      <a href={m.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">
+        LinkedIn
+      </a>
+    )}
+    {m.website && (
+      <a href={m.website} target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">
+        Website
+      </a>
+    )}
+  </div>
+</article>

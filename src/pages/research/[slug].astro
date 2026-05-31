@@ -1,0 +1,107 @@
+---
+// src/pages/research/[slug].astro
+import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
+
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('research');
+  return entries.map(entry => ({
+  params: { slug: entry.id.replace(/\.(mdx?|md)$/, '') },
+  props:  { entry },
+}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+
+const allResearch = await getCollection('research');
+const siblings = allResearch
+  .filter(r => r.id !== entry.id)
+  .map(r => ({ ...r, slug: r.id.replace(/\.(mdx?|md)$/, '') }))
+
+const d = entry.data;
+const formattedDate = d.updatedDate
+  ? new Intl.DateTimeFormat('en-GB', { day:'numeric', month:'long', year:'numeric' }).format(d.updatedDate)
+  : null;
+---
+
+<Layout title={d.title} description={d.description}>
+
+  <div class="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-10">
+      <ol class="flex items-center gap-2 text-xs text-ink-faint">
+        <li><a href="/" class="hover:text-ink transition-colors">Home</a></li>
+        <li>/</li>
+        <li><a href="/research" class="hover:text-ink transition-colors">Research</a></li>
+        <li>/</li>
+        <li class="text-ink-muted" aria-current="page">{d.title}</li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <header class="mb-12 pb-10 border-b border-surface-border">
+      {d.tags.length > 0 && (
+        <div class="flex flex-wrap gap-1.5 mb-4">
+          {d.tags.map((tag: string) => (
+            <span class="text-xs text-ink-faint bg-surface-muted border border-surface-border rounded px-2 py-0.5">{tag}</span>
+          ))}
+        </div>
+      )}
+      <h1 class="font-display text-3xl font-bold text-ink leading-tight tracking-tight mb-4 sm:text-4xl">
+        {d.title}
+      </h1>
+      <p class="text-base text-ink-muted leading-relaxed max-w-2xl">{d.description}</p>
+      {formattedDate && (
+        <p class="mt-4 text-xs text-ink-faint">
+          Updated <time datetime={d.updatedDate!.toISOString()}>{formattedDate}</time>
+        </p>
+      )}
+    </header>
+
+    <!-- MDX content — prose plugin handles all styling -->
+    <article class="prose prose-slate max-w-none
+      prose-headings:font-display prose-headings:tracking-tight prose-headings:text-ink
+      prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+      prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+      prose-p:text-ink-muted prose-p:leading-relaxed
+      prose-a:text-accent-blue prose-a:no-underline hover:prose-a:underline
+      prose-strong:text-ink prose-strong:font-semibold
+      prose-code:font-mono prose-code:text-ink-soft prose-code:bg-surface-muted prose-code:text-sm
+      prose-pre:bg-surface-muted prose-pre:border prose-pre:border-surface-border prose-pre:rounded-lg
+      prose-blockquote:border-l-surface-divider prose-blockquote:text-ink-muted prose-blockquote:not-italic
+      prose-th:text-ink prose-td:text-ink-muted
+      prose-hr:border-surface-border
+      prose-li:text-ink-muted
+    ">
+      <Content />
+    </article>
+
+    <!-- More Research -->
+    {siblings.length > 0 && (
+      <section class="mt-16 pt-10 border-t border-surface-border">
+        <h2 class="label mb-5">More Research</h2>
+        <div class="grid gap-4 sm:grid-cols-2">
+          {siblings.map(area => (
+            <a href={`/research/${area.slug}`}
+               class="group block border-t-2 border-surface-border pt-4 hover:border-ink transition-colors">
+              <h3 class="font-display text-sm font-bold text-ink mb-1 group-hover:text-accent-blue transition-colors">
+                {area.data.title}
+              </h3>
+              <p class="text-xs text-ink-faint line-clamp-2 leading-relaxed">{area.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <div class="mt-10">
+      <a href="/research" class="text-sm text-ink-faint hover:text-ink transition-colors">← All research areas</a>
+    </div>
+
+  </div>
+</Layout>

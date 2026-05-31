@@ -1,0 +1,12 @@
+{
+    "title": "From Wasserstein to Maximum Mean Discrepancy Barycenters: A Novel Framework for Uncertainty Propagation in Model-Free Reinforcement Learning",
+    "authors": ["Srinjoy Roy", "Subhajit Saha", "Swagatam Das"],
+    "year": 2025,
+    "venue": "IEEE Transactions on Emerging Topics in Computational Intelligence",
+    "type": "journal",
+    "url": "https://ieeexplore.ieee.org/abstract/document/11142813",
+    "doi": "10.1109/TETCI.2025.3593841",
+    "abstract": "Uncertainty characterization via posteriors followed by Bayesian updates is an acclaimed way to aid the exploration of model-free Reinforcement Learning (RL) algorithms. Motivated by the Bayesian RL literature, we build Maximum Mean Discrepancy Q-Learning (MMD-QL) to enhance the well-known Wasserstein Q-Learning (WQL) for more accurately estimating the posteriors and, as a result, accomplish even better exploration. MMD-QL leverages the Maximum Mean Discrepancy (MMD) barycenter, as for many positive semi-definite kernels that induce smooth function classes, MMD offers a more precise notion of distance between distributions than the Wasserstein distance. We analytically prove that a slightly modified version of MMD-QL is Probably Approximately Correct in Markov Decision Processes (PAC-MDP) under the average loss metric. Thorough experiments on several tabular domains illustrate that MMD-QL mainly surpasses the performance of WQL and other algorithms. Unlike many provably efficient RL algorithms, the framework of MMD-QL can extend to function approximation. Specifically, we incorporate Bootstrapped DQN-style deep networks, giving rise to Maximum Mean Discrepancy Q-Network (MMD-QN). Our experiments on a few Atari games reveal that MMD-QN delivers better than the deep equivalent of WQL, emphasizing the efficacy of MMD barycenters for propagating uncertainty in environments with large state-action space size.",
+    "tags": ["MMD-Q", "WQL", "Bootstrapped DQN"],
+    "featured": true
+}

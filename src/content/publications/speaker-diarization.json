@@ -1,0 +1,12 @@
+{
+    "title": "MK-SGC-SC: Multiple Kernel guided Sparse Graph Construction in Spectral Clustering for Unsupervised Speaker Diarization",
+    "authors": ["Nikhil Raghav", "Avisek Gupta", "Swagatam Das", "Md Sahidullah"],
+    "year": 2026,
+    "venue":"arXiv",
+    "type": "journal",
+    "url": "https://arxiv.org/abs/2601.19946",
+    "codeUrl":"https://github.com/nikhilraghav29/MK-SGC-SC",
+    "abstract": "Speaker diarization aims to segment audio recordings into regions corresponding to individual speakers. Although unsupervised speaker diarization is inherently challenging, the prospect of identifying speaker regions without pretraining or weak supervision motivates research on clustering techniques. In this work, we share the notable observation that measuring multiple kernel similarities of speaker embeddings to thereafter craft a sparse graph for spectral clustering in a principled manner is sufficient to achieve state-of-the-art performances in a fully unsupervised setting. Specifically, we consider four polynomial kernels and a degree one arccosine kernel to measure similarities in speaker embeddings, using which sparse graphs are constructed in a principled manner to emphasize local similarities. Experiments show the proposed approach excels in unsupervised speaker diarization over a variety of challenging environments in the DIHARD-III, AMI, and VoxConverse corpora.",
+    "tags": ["Speaker diarization", "Spectral clustering", "Multiple kernels", "Sparse graphs"],
+    "featured": true
+}

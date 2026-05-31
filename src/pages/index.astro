@@ -1,0 +1,129 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+import PublicationCard from '../components/PublicationCard.astro';
+import { getCollection } from 'astro:content';
+
+const researchAreas  = await getCollection('research');
+const featuredResearch = researchAreas
+  .filter(r => r.data.featured)
+  .sort((a,b) => a.data.order - b.data.order)
+  .map(entry => ({ ...entry, slug: entry.id.replace(/\.(mdx?|md)$/, '') }));
+
+const allPubs      = await getCollection('publications');
+const featuredPubs = allPubs.filter(p => p.data.featured).sort((a,b) => b.data.year - a.data.year).slice(0, 3);
+
+const allMembers    = await getCollection('members');
+const currentMembers = allMembers.filter(m => !m.data.isAlumni).sort((a,b) => a.data.order - b.data.order);
+---
+
+<Layout title="Representation Learning Lab">
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+  <section class="mx-auto max-w-5xl px-5 pt-20 pb-16 sm:px-8 sm:pt-28 sm:pb-24">
+    <p class="label mb-5">Deep Learning · AI/ML · TCG CREST</p>
+
+    <h1 class="font-display text-4xl font-bold text-ink leading-tight tracking-tight sm:text-5xl lg:text-[3.5rem] max-w-3xl">
+      Learning the Hidden Complexity of the World
+    </h1>
+
+    <p class="mt-6 max-w-2xl text-base text-ink-muted leading-relaxed sm:text-lg">
+      The <strong class="font-semibold text-ink">Representation Learning Lab</strong> develops the theoretical foundations and algorithms for artificial intelligence that can grasp <em>why</em> events occur, moving beyond mere pattern recognition. Our core focus spans causality, data representation, and advanced machine learning.
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/research"
+         class="inline-flex items-center gap-1.5 rounded bg-ink text-white text-sm font-medium px-5 py-2.5 hover:bg-ink-soft transition-colors">
+        Explore Research
+        <svg class="h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+        </svg>
+      </a>
+      <a href="/publications"
+         class="inline-flex items-center gap-1.5 rounded border border-surface-border text-ink-muted text-sm font-medium px-5 py-2.5 hover:text-ink hover:border-surface-divider transition-colors">
+        Publications
+      </a>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="mt-14 flex flex-wrap gap-10 border-t border-surface-border pt-8">
+      {[
+        { value: String(allPubs.length) + '+', label: 'Publications' },
+        { value: String(currentMembers.length),  label: 'Researchers'  },
+        { value: '2',                             label: 'Research Areas'},
+        { value: '2024',                          label: 'Founded'      },
+      ].map(({ value, label }) => (
+        <div>
+          <p class="font-display text-2xl font-bold text-ink tracking-tight">{value}</p>
+          <p class="text-xs text-ink-faint mt-0.5">{label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Research Areas ───────────────────────────────────────────────── -->
+  <section class="border-t border-surface-border bg-surface-raised px-5 py-16 sm:px-8" aria-labelledby="research-heading">
+    <div class="mx-auto max-w-5xl">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 id="research-heading" class="font-display text-xl font-bold text-ink">Research Areas</h2>
+        <a href="/research" class="text-sm text-ink-faint hover:text-ink transition-colors">View all →</a>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-2">
+        {featuredResearch.map((area) => (
+          <a href={`/research/${area.slug}`}
+             class="group block border-t-2 border-surface-border pt-5 hover:border-ink transition-colors duration-200">
+            <h3 class="font-display text-base font-bold text-ink mb-2 group-hover:text-accent-blue transition-colors">
+              {area.data.title}
+            </h3>
+            <p class="text-sm text-ink-muted leading-relaxed">{area.data.description}</p>
+            <p class="mt-3 text-xs text-ink-faint group-hover:text-ink transition-colors">
+              Read more →
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured Publications ───────────────────────────────────────── -->
+  <section class="px-5 py-16 sm:px-8" aria-labelledby="pubs-heading">
+    <div class="mx-auto max-w-5xl">
+      <div class="flex items-baseline justify-between mb-2">
+        <h2 id="pubs-heading" class="font-display text-xl font-bold text-ink">Featured Publications</h2>
+        <a href="/publications" class="text-sm text-ink-faint hover:text-ink transition-colors">All papers →</a>
+      </div>
+      <p class="text-sm text-ink-faint mb-6">Lab members in <strong class="font-semibold text-ink">bold</strong>.</p>
+
+      <div class="grid gap-2 md:grid-cols-1">
+        {featuredPubs.map(pub => <PublicationCard publication={pub} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Team snapshot ────────────────────────────────────────────────── -->
+  <section class="border-t border-surface-border bg-surface-raised px-5 py-16 sm:px-8" aria-labelledby="team-heading">
+    <div class="mx-auto max-w-5xl">
+      <div class="flex items-baseline justify-between mb-6">
+        <h2 id="team-heading" class="font-display text-xl font-bold text-ink">The Team</h2>
+        <a href="/team" class="text-sm text-ink-faint hover:text-ink transition-colors">Meet everyone →</a>
+      </div>
+
+      <p class="text-sm text-ink-muted max-w-xl leading-relaxed mb-8">
+        We are a diverse group united by a passion for the mathematical foundations of learning.
+        <!-- Enquiries from prospective PhD students and postdocs are welcome. -->
+      </p>
+
+      <!-- Member name list -->
+      <div class="flex flex-wrap gap-x-8 gap-y-3">
+        {currentMembers.map(m => (
+          <div>
+            <p class="text-sm font-medium text-ink">{m.data.name}</p>
+            <p class="text-xs text-ink-faint">{m.data.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>

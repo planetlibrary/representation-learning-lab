@@ -1,0 +1,13 @@
+# Cloudflare Pages deployment config
+# Place this file at the repo root.
+# In the Cloudflare Pages dashboard:
+#   Build command:   npm run build
+#   Output directory: dist
+#   Node.js version:  20 (set via NODE_VERSION env var)
+
+[build]
+command = "npm run build"
+publish = "dist"
+
+[build.environment]
+NODE_VERSION = "20"

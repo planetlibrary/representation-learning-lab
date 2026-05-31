@@ -1,0 +1,151 @@
+---
+// src/layouts/Layout.astro
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = 'Representation Learning Lab — research in causal representation learning, deep reinforcement learning, and the theoretical foundations of machine learning.',
+  canonical = Astro.url.href,
+  ogImage = '/og-default.png',
+} = Astro.props;
+
+const siteName = 'Representation Learning Lab';
+const fullTitle = title === siteName ? siteName : `${title} · ${siteName}`;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={canonical} />
+    <meta property="og:title"       content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={ogImage} />
+    <meta property="og:site_name"   content={siteName} />
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImage} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    
+    <!-- Geist Sans (Vercel CDN) -->
+    <link rel="preconnect" href="https://assets.vercel.com" />
+    <link
+      rel="stylesheet"
+      href="https://assets.vercel.com/raw/upload/v1/v1/fonts/geist/geist-sans.css"
+    />
+
+    <!-- JetBrains Mono (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- KaTeX math rendering CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+/>
+
+    <style is:global>
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+
+      @font-face {
+        font-family: 'Neue Haas Grotesk Display';
+        font-style: normal;
+        font-weight: 400 800;
+        font-display: swap;
+        src: local('Helvetica Neue'), local('HelveticaNeue'), local('Arial');
+      }
+
+      @layer base {
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html {
+          scroll-behavior: smooth;
+          scrollbar-gutter: stable;
+          font-size: 16px;
+        }
+
+        body {
+          @apply bg-surface text-ink-soft font-sans antialiased;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Scrollbar — barely-there, editorial */
+        ::-webkit-scrollbar       { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { @apply bg-surface-divider rounded-full; }
+        ::-webkit-scrollbar-thumb:hover { @apply bg-ink-faint; }
+
+        /* Selection — high contrast, clean */
+        ::selection { background: #0a0a0a; color: #ffffff; }
+
+        /* Focus ring */
+        :focus-visible {
+          outline: 2px solid #2563eb;
+          outline-offset: 3px;
+          border-radius: 3px;
+        }
+
+        /* Typography base */
+        h1, h2, h3, h4, h5, h6 {
+          @apply font-display text-ink tracking-tight;
+          font-weight: 700;
+        }
+
+        p { @apply leading-relaxed; }
+
+        a { @apply transition-colors duration-150; }
+      }
+
+      @layer components {
+        /* KaTeX display math */
+        .katex-display {
+          @apply overflow-x-auto py-3 font-mono;
+        }
+        .katex {
+          white-space: nowrap;
+          font-size: 1.05em;
+        }
+
+        /* Section label — small caps uppercase */
+        .label {
+          @apply text-xs font-sans font-medium tracking-widest uppercase text-ink-faint;
+        }
+
+        /* Divider rule */
+        .divider {
+          @apply border-t border-surface-border;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="flex min-h-screen flex-col bg-surface">
+    <Navbar />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

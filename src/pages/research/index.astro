@@ -1,0 +1,50 @@
+---
+// src/pages/research/index.astro
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const all    = await getCollection('research');
+const sorted = all
+  .sort((a,b) => a.data.order - b.data.order)
+  .map(entry => ({ ...entry, slug: entry.id.replace(/\.(mdx?|md)$/, '') }));
+---
+
+<Layout title="Research" description="Representation Learning Lab research areas.">
+
+  <div class="mx-auto max-w-5xl px-5 pt-16 pb-10 sm:px-8 sm:pt-20">
+    <p class="label mb-4">What we work on</p>
+    <h1 class="font-display text-3xl font-bold text-ink sm:text-4xl">Research</h1>
+    <p class="mt-3 max-w-xl text-sm text-ink-muted leading-relaxed">
+      Detailed enumeration of the research works
+    </p>
+  </div>
+
+  <div class="mx-auto max-w-5xl px-5 pb-24 sm:px-8">
+    {sorted.map((area, i) => (
+      <a
+        href={`/research/${area.slug}`}
+        class="group flex gap-6 border-t border-surface-border py-8 hover:bg-surface-raised -mx-5 px-5 sm:-mx-8 sm:px-8 transition-colors"
+      >
+        <span class="font-mono text-xs text-ink-faint tabular-nums pt-1 w-5 shrink-0">
+          {String(i + 1).padStart(2,'0')}
+        </span>
+        <div class="min-w-0">
+          <h2 class="font-display text-lg font-bold text-ink group-hover:text-accent-blue transition-colors mb-2">
+            {area.data.title}
+          </h2>
+          <p class="text-sm text-ink-muted leading-relaxed mb-3">{area.data.description}</p>
+          {area.data.tags.length > 0 && (
+            <div class="flex flex-wrap gap-1.5">
+              {area.data.tags.map((tag: string) => (
+                <span class="text-xs text-ink-faint bg-surface-muted border border-surface-border rounded px-2 py-0.5">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+        <span class="text-ink-faint group-hover:text-ink ml-auto shrink-0 text-sm self-start pt-1 transition-colors">→</span>
+      </a>
+    ))}
+  </div>
+</Layout>

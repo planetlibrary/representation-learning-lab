@@ -1,0 +1,12 @@
+{
+    "title": "Compact agent neighborhood search for the SCSGA-MF-TS: SCSGA with multi-dimensional features prioritizing task satisfaction",
+    "authors": ["Tuhin Kumar Biswas", "Avisek Gupta", "Narayan Changder", "Swagatam Das", "Redha Taguelmimt", "Samir Aknine", "Animesh Dutta"],
+    "year": 2025,
+    "venue":"Information Sciences",
+    "type": "journal",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0020025525001537",
+    "doi": "10.1016/j.ins.2025.122021",
+    "abstract": "A variant of the Simultaneous Coalition Structure Generation and Assignment (SCSGA) problem considering Multi-dimensional Features (SCSGA-MF) aims to form coalitions of multi-dimensional agents to satisfy the requirements of multi-dimensional tasks. Considering multiple dimensions for agents and tasks makes identifying optimal solutions challenging. However this problem setup is more human-interpretable, as each task feature can be viewed as a requirement to be met by the agent features in a coalition. Previous research on SCSGA-MF focused on minimizing the value of the coalition structure, while maximizing task satisfaction has yet to be explored. Here we propose the SCSGA-MF prioritizing Task Satisfaction (SCSGA-MF-TS), which aims to minimize the coalition structure value while maximizing the number of satisfied tasks. For SCSGA-MF-TS, we propose a Compact Agent Neighborhood (CAN) search consisting of two phases. The first phase generates an initial coalition structure by assigning agents to the nearest yet-unsatisfied tasks. The second phase refines the coalition structure by assigning agents to coalitions with the most compact local neighborhood around its task, while not decreasing the number of satisfied tasks. Our empirical studies show that the CAN search satisfies significantly more tasks compared to the state-of-the-arts. For a relaxed SCSGA-MF-TS problem, a greedy heuristic is recommended.",
+    "tags": ["Speaker diarization", "Spectral clustering", "Multiple kernels", "Sparse graphs"],
+    "featured": true
+}
