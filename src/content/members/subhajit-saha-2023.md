@@ -1,7 +1,7 @@
 ---
 name: "Subhajit Saha"
-role: "PhD Student"
-bio: "I am a Ph.D. researcher working in Reinforcement Learning. My research interests include Multi-Agent Reinforcement Learning, Deep Reinforcement Learning, and applications to real world problems. I am interested in developing intelligent decision-making systems through principled learning and optimization methods."
+role: "PhD Scholar"
+bio: "Subhajit Saha is a Ph.D. researcher specializing in Reinforcement Learning. His research focuses on Multi-Agent Reinforcement Learning, Deep Reinforcement Learning, and their applications to real-world challenges. His work aims to advance intelligent decision-making systems through principled learning, optimization, and data-driven methodologies."
 email: "subhajits065@gmail.com"
 joinYear: 2023
 avatar: "/member-pics/subhajit-saha-2023.jpg"
