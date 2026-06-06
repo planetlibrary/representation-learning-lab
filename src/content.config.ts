@@ -12,7 +12,7 @@ const membersCollection = defineCollection({
       'Principal Investigator',
       'Co-Investigator',
       'Postdoctoral Researcher',
-      'PhD Student',
+      'PhD Scholar',
       'MS Student',
       'Research Engineer',
       'Undergraduate Researcher',

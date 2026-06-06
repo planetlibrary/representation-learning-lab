@@ -13,16 +13,14 @@ const roleLabelColor: Record<string, string> = {
   'Principal Investigator':  'text-ink font-medium',
   'Co-Investigator':         'text-ink font-medium',
   'Postdoctoral Researcher': 'text-ink-muted',
-  'PhD Scholar':             'text-ink-muted',
+  'PhD Student':             'text-ink-muted',
   'MS Student':              'text-ink-muted',
   'Research Engineer':       'text-ink-muted',
   'Undergraduate Researcher':'text-ink-subtle',
   'Visiting Researcher':     'text-ink-subtle',
   'Alumni':                  'text-ink-faint',
-  'Intern':                  'text-ink-faint',
 };
 const roleColor = roleLabelColor[m.role] ?? 'text-ink-muted';
-
 const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase();
 ---
 
@@ -30,8 +28,6 @@ const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
 
   <!-- Top row: avatar + name + role -->
   <div class="flex items-start gap-4">
-
-    <!-- Avatar -->
     {m.avatar
       ? <img
           src={m.avatar}
@@ -57,7 +53,7 @@ const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
     </div>
   </div>
 
-  <!-- Bio — full text, no clamp -->
+  <!-- Bio — clamped by default, toggle on click -->
   <div>
     <p
       id={`bio-${member.id}`}
@@ -69,9 +65,10 @@ const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
       data-target={`bio-${member.id}`}
       class="bio-btn text-xs text-ink-faint hover:text-ink transition-colors mt-1 cursor-pointer"
     >
-      Show More
+      ...
     </button>
   </div>
+
   <!-- Research interests -->
   {m.interests.length > 0 && (
     <div class="flex flex-wrap gap-1.5">
@@ -100,9 +97,9 @@ const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
         Scholar
       </a>
     )}
-    {m.linkedin && (
-      <a href={m.linkedin} target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">
-        LinkedIn
+    {m.twitter && (
+      <a href={m.twitter} target="_blank" rel="noopener noreferrer" class="hover:text-ink transition-colors">
+        Twitter
       </a>
     )}
     {m.website && (
@@ -112,6 +109,7 @@ const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
     )}
   </div>
 </article>
+
 <style>
   /* Use raw CSS for clamp — avoids Tailwind purge issues entirely */
   .bio-clamped {
@@ -132,7 +130,7 @@ const initials = m.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)
         if (isOpen) {
           p.classList.remove('bio-open');
           p.classList.add('bio-clamped');
-          btn.textContent = 'Show More';
+          btn.textContent = '...';
         } else {
           p.classList.remove('bio-clamped');
           p.classList.add('bio-open');

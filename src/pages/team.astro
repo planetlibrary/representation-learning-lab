@@ -10,7 +10,7 @@ const alumni = allMembers.filter(m => m.data.isAlumni).sort((a,b) => b.data.join
 
 const roleOrder = [
   'Principal Investigator','Co-Investigator','Postdoctoral Researcher',
-  'Research Engineer','PhD Student','MS Student','Undergraduate Researcher','Visiting Researcher', 'Intern'
+  'Research Engineer','PhD Scholar','MS Student','Undergraduate Researcher','Visiting Researcher', 'Intern'
 ];
 
 const membersByRole = roleOrder.reduce<Map<string, typeof currentMembers>>((acc, role) => {
