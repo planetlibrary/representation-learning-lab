@@ -1,0 +1,12 @@
+{
+    "title": "Exact Rotation Invariant Robust PCA",
+    "authors": ["Tanmoy Jana", "Nikhil Raghav", "Angshul Majumdar", "Md Sahidullah"],
+    "year": 2025,
+    "venue": "International Conference on Acoustics, Speech and Signal Processing (ICASSP)",
+    "type": "conference",
+    "url": "https://ieeexplore.ieee.org/abstract/document/10889970/",
+    "doi": "10.1109/ICASSP49660.2025.10889970",
+    "abstract": "In this work, we address the challenge of estimating principal components in the presence of outliers, a problem commonly referred to as robust principal component analysis (PCA). Traditional PCA minimizes the Euclidean norm, making it vulnerable to outliers. To enhance robustness, earlier approaches replaced the Euclidean norm with the l1-norm, which improved resilience to outliers but did not fully eliminate their influence. Subsequent studies proposed the use of the lp-norm (0 < p < 1), which further reduced the impact of outliers. In this paper, we advance this line of research by replacing the lp-norm with the l0-norm, effectively eliminating the influence of outliers in the estimation process. To maintain rotational invariance, we introduce the l2,0-norm, applying the l2-norm and the l0-norm selectively across features and samples. The proposed formulations are solved using augmented Lagrangians followed by alternating minimization. Extensive experiments on datasets from the UCI Machine Learning Repository demonstrate that our method outperforms previous robust PCA formulations, including R1-PCA, principal component pursuit, and the recently introduced median-of-means-based robust PCA approach",
+    "tags": ["Robust PCA","Outliers","Optimization","Estimation"],
+    "featured": true
+}
